@@ -1,0 +1,123 @@
+{
+    "Sistema": "placa solar",
+    "Modulos": [
+        {
+            "Nome": "Placa Solar",
+            "Sensores": [
+                {
+                    "IdPlaca": "Esp1",
+                    "Tipo": "ADC",
+                    "Porta": 36,
+                    "Medicao": "Ampere"
+                },
+                {
+                    "IdPlaca": "Esp1",
+                    "Tipo": "ADC",
+                    "Porta": 37,
+                    "Medicao": "Voltagem"
+                }
+            ]
+        },
+        {
+            "Nome": "Controlador",
+            "Sensores": [
+                {
+                    "IdPlaca": "Esp1",
+                    "Tipo": "ADC",
+                    "Porta": 30,
+                    "Medicao": "Ampere"
+                },
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "ADC",
+                    "Porta": 31,
+                    "Medicao": "Voltagem"
+                }
+            ]
+        },
+        {
+            "Nome": "Bateria Bloco",
+            "Sensores": [
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "ADC",
+                    "Porta": 30,
+                    "Medicao": "Ampere"
+                },
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "ADC",
+                    "Porta": 31,
+                    "Medicao": "Voltagem"
+                },
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "ADC",
+                    "Porta": 31,
+                    "Medicao": "Temperatura"
+                }
+            ]
+        },
+        {
+            "Nome": "Bateria 1",
+            "Sensores": [
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "ADC",
+                    "Porta": 31,
+                    "Medicao": "Temperatura"
+                }
+            ]
+        },
+        {
+            "Nome": "Bateria 2",
+            "Sensores": [
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "ADC",
+                    "Porta": 31,
+                    "Medicao": "Temperatura"
+                }
+            ]
+        },
+        {
+            "Nome": "Bateria 2",
+            "Sensores": [
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "ADC",
+                    "Porta": 31,
+                    "Medicao": "Temperatura"
+                }
+            ]
+        },
+        {
+            "Nome": "Divisor",
+            "Sensores": [
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "ADC",
+                    "Porta": 36,
+                    "Medicao": "Ampere"
+                },
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "ADC",
+                    "Porta": 37,
+                    "Medicao": "Voltagem"
+                }
+            ]
+        },
+        {
+            "Nome": "Rede Elétrica",
+            "Sensores": [
+                {
+                    "IdPlaca": "Esp2",
+                    "Tipo": "Digital",
+                    "Porta": 31,
+                    "Medicao": "Ativo"
+                }
+            ]
+        }
+    ]
+}
