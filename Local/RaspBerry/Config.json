@@ -1,5 +1,6 @@
 {
-    "Sistema": "placa solar",
+    "Sistema": "PlacaSolar",
+    "Intervalo": 5,
     "Modulos": [
         {
             "Nome": "Placa Solar",
@@ -8,13 +9,11 @@
                     "IdPlaca": "Esp1",
                     "Tipo": "ADC",
                     "Porta": 36,
-                    "Medicao": "Ampere"
-                },
-                {
-                    "IdPlaca": "Esp1",
-                    "Tipo": "ADC",
-                    "Porta": 37,
-                    "Medicao": "Voltagem"
+                    "Medicao": "Ampere",
+                    "Voltagem": 1.1,
+                    "bits": 10,
+                    "RangeIni": 0,
+                    "RangeFim": 200
                 }
             ]
         },
@@ -25,7 +24,11 @@
                     "IdPlaca": "Esp1",
                     "Tipo": "ADC",
                     "Porta": 30,
-                    "Medicao": "Ampere"
+                    "Medicao": "Ampere",
+                    "Voltagem": 3.7,
+                    "bits": 12,
+                    "RangeIni": 0,
+                    "RangeFim": 25
                 },
                 {
                     "IdPlaca": "Esp2",
