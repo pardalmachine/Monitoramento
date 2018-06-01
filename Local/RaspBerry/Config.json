@@ -1,9 +1,9 @@
 {
     "Sistema": "PlacaSolar",
-    "Intervalo": 5,
+    "Intervalo": 2,
     "Modulos": [
         {
-            "Nome": "Placa Solar",
+            "Nome": "PlacaSolar",
             "Sensores": [
                 {
                     "IdPlaca": "Esp1",
@@ -39,7 +39,7 @@
             ]
         },
         {
-            "Nome": "Bateria Bloco",
+            "Nome": "BateriaBloco",
             "Sensores": [
                 {
                     "IdPlaca": "Esp2",
@@ -62,7 +62,7 @@
             ]
         },
         {
-            "Nome": "Bateria 1",
+            "Nome": "Bateria1",
             "Sensores": [
                 {
                     "IdPlaca": "Esp2",
@@ -73,7 +73,7 @@
             ]
         },
         {
-            "Nome": "Bateria 2",
+            "Nome": "Bateria2",
             "Sensores": [
                 {
                     "IdPlaca": "Esp2",
@@ -84,7 +84,7 @@
             ]
         },
         {
-            "Nome": "Bateria 2",
+            "Nome": "Bateria2",
             "Sensores": [
                 {
                     "IdPlaca": "Esp2",
