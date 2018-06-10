@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
 var db = require('../db')
-var Book = require('../models/Book.js');
 
 /* GET ALL BOOKS */
 router.get('/', function (res, next) {
@@ -14,8 +12,8 @@ router.post('/valores', function (req, res, next) {
   var colecao = base.collection(req.body.colecao);
   var medicao = req.body.medicao;
   var de = new Date(req.body.de);
-  var ate = new Date( req.body.ate);
-  ate.setDate(ate.getDate()+1);
+  var ate = new Date(req.body.ate);
+  ate.setDate(ate.getDate() + 1);
   //var de = new Date("2018-06-09T00:00:00.000Z");
   console.log(de);
   console.log(ate);
@@ -72,19 +70,24 @@ router.post('/medicao', function (req, res, next) {
 });
 
 
+
 router.post('/collections', function (req, res, next) {
   var base = db.get().db(req.body.base);
+  res.set('Content-Type', 'application/json');
   base.listCollections().toArray(function (err, item) {
     console.log(item);
-    res.json(item);
+    res.send(item);
+    //res.json(item);
   });
 });
 
 
 router.get('/databases', function (req, res, next) {
+  res.set('Content-Type', 'application/json');
   var adminDb = db.get().db('admin').admin();
   adminDb.listDatabases(function (err, dbs) {
-    res.json(dbs.databases.filter(p => p.name != 'admin' && p.name != 'config' && p.name != 'local'));
+    //res.send(dbs.databases.filter(p => p.name != 'admin' && p.name != 'config' && p.name != 'local'));
+    res.send(201, [{ "name": "PlacaSolar", "sizeOnDisk": 143360, "empty": false }, { "name": "basex", "sizeOnDisk": 32768, "empty": false }])
   });
 
 });
