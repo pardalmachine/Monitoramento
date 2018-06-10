@@ -23,6 +23,8 @@ class BancoMongo:
             insert = {}
             insert["Medicao"] = valor["Medicao"]
             insert["Valor"] = valor["Valor"]
-            insert["Hora"]=datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+            #insert["Hora"]="ISODate('"+datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')+"')"
+            #insert["Hora"]="new Date()"
+            insert["Hora"]=datetime.datetime.now()
             id = colecao.insert_one(insert).inserted_id
             print(id)
