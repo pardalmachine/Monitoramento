@@ -41,7 +41,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-md-12\">\n        <div class=\"card\">\n            <div class=\"card-header\">Pesquisa</div>\n            <div class=\"card-body\">\n                <div class=\"form-row\">\n                    <div class=\"col-md-4\">\n                        <label>Base\n                            <span *ngIf=\"Base\" style=\"margin-left: 10px;\"> Tamanho: {{Base.sizeOnDisk}}</span>\n                        </label>\n                        <select [(ngModel)]=\"Base\" class=\"form-control\" (click)=\"AtuColecoes()\" name=\"base\">\n                            <option *ngFor=\"let item of ListaBases\" [ngValue]=\"item\">{{item.name}}</option>\n                        </select>\n                    </div>\n                    <div class=\"col-md-4\" *ngIf=\"Base\">\n                        <label>Coleção</label>\n                        <select [(ngModel)]=\"Colecao\" class=\"form-control\" (click)=\"AtuMedicoes()\">\n                            <option *ngFor=\"let item of ListaColecoes\" [ngValue]=\"item\">{{item.name}}</option>\n                        </select>\n                    </div>\n                    <div class=\"col-md-4\" *ngIf=\"Colecao\">\n                        <label>Coleção</label>\n                        <select [(ngModel)]=\"Medicao\" class=\"form-control\">\n                            <option *ngFor=\"let item of ListaMedicoes\" [ngValue]=\"item\">{{item._id}}</option>\n                        </select>\n                    </div>\n                </div>\n                <div class=\"row\" *ngIf=\"Medicao\">\n                    <div class=\"col-md-6\">\n                        <dl>\n                            <dt>Início</dt>\n                            <dd>{{Medicao.De | date:'dd/MM/yyyy'}}</dd>\n                            <dt>Término</dt>\n                            <dd>{{Medicao.Ate | date:'dd/MM/yyyy'}}</dd>\n                            <dt>Leituras</dt>\n                            <dd>{{Medicao.Leituras}}</dd>\n                        </dl>\n                    </div>\n                    <div class=\"col-md-6\">\n                        <div class=\"form-group\">\n                            <label>De:</label>\n                            <input type=\"date\" [(ngModel)]=\"De\" class=\"form-control\">\n                        </div>\n                        <div class=\"form-group\">\n                            <label>De:</label>\n                            <input type=\"date\" [(ngModel)]=\"Ate\" class=\"form-control\">\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"card-footer text-right\">\n                <button class=\"btn btn-primary\" (click)=\"GeraGrafico()\">Gráfico</button>\n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"row\">\n    <div class=\"col-md-12\">\n        <div class=\"card\">\n            <div class=\"card-header\">Pesquisa</div>\n            <div class=\"card-body\">\n                <div class=\"form-row\">\n                    <div class=\"col-md-4\">\n                        <label>Base\n                            <span *ngIf=\"Base\" style=\"margin-left: 10px;\"> Tamanho: {{Base.sizeOnDisk}}</span>\n                        </label>\n                        <select [(ngModel)]=\"Base\" class=\"form-control\" (click)=\"AtuColecoes()\" name=\"base\">\n                            <option *ngFor=\"let item of ListaBases\" [ngValue]=\"item\">{{item.name}}</option>\n                        </select>\n                    </div>\n                    <div class=\"col-md-4\" *ngIf=\"Base\">\n                        <label>Coleção</label>\n                        <select [(ngModel)]=\"Colecao\" class=\"form-control\" (click)=\"AtuMedicoes()\">\n                            <option *ngFor=\"let item of ListaColecoes\" [ngValue]=\"item\">{{item.name}}</option>\n                        </select>\n                    </div>\n                    <div class=\"col-md-4\" *ngIf=\"Colecao\">\n                        <label>Coleção</label>\n                        <select [(ngModel)]=\"Medicao\" class=\"form-control\">\n                            <option *ngFor=\"let item of ListaMedicoes\" [ngValue]=\"item\">{{item._id}}</option>\n                        </select>\n                    </div>\n                </div>\n                <div class=\"row\" *ngIf=\"Medicao\">\n                    <div class=\"col-md-6\">\n                        <dl>\n                            <dt>Início</dt>\n                            <dd>{{Medicao.De | date:'dd/MM/yyyy'}}</dd>\n                            <dt>Término</dt>\n                            <dd>{{Medicao.Ate | date:'dd/MM/yyyy'}}</dd>\n                            <dt>Leituras</dt>\n                            <dd>{{Medicao.Leituras}}</dd>\n                        </dl>\n                    </div>\n                    <div class=\"col-md-6\">\n                        <div class=\"form-group\">\n                            <label>De:</label>\n                            <input type=\"date\" [(ngModel)]=\"De\" class=\"form-control\">\n                        </div>\n                        <div class=\"form-group\">\n                            <label>De:</label>\n                            <input type=\"date\" [(ngModel)]=\"Ate\" class=\"form-control\">\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"card-footer text-right\">\n                <button class=\"btn btn-primary\" (click)=\"GeraGrafico()\">Gráfico</button>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div *ngIf=\"showGrafico\">\n    <p-chart type=\"line\" [data]=\"Grafico\"></p-chart>\n</div>"
 
 /***/ }),
 
@@ -74,6 +74,7 @@ var AppComponent = /** @class */ (function () {
         this.ListaBases = [];
         this.ListaColecoes = [];
         this.ListaMedicoes = [];
+        this.showGrafico = false;
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -83,6 +84,7 @@ var AppComponent = /** @class */ (function () {
         var _this = this;
         this.Colecao = null;
         this.Medicao = null;
+        this.showGrafico = false;
         this.ListaColecoes = [];
         if (this.Base) {
             var prm = { base: this.Base.name };
@@ -95,6 +97,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.AtuMedicoes = function () {
         var _this = this;
         this.Medicao = null;
+        this.showGrafico = false;
         this.ListaMedicoes = [];
         if (this.Colecao) {
             var prm = { base: this.Base.name, colecao: this.Colecao.name };
@@ -103,6 +106,7 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.GeraGrafico = function () {
         var _this = this;
+        this.showGrafico = false;
         var prm = {
             base: this.Base.name,
             colecao: this.Colecao.name,
@@ -110,14 +114,46 @@ var AppComponent = /** @class */ (function () {
             de: this.De,
             ate: this.Ate
         };
-        this.dados.valores(prm).subscribe(function (p) { return _this.ListaMedicoes = p; });
+        this.Grafico = {
+            labels: [],
+            datasets: [
+                {
+                    label: this.Medicao._id,
+                    data: [],
+                    fill: false
+                }
+            ]
+        };
+        this.dados.valores(prm).subscribe(function (p) {
+            p.forEach(function (vlr) {
+                // labels.push(p.Hora);
+                // valores.push(p.Valor);
+                _this.Grafico.labels.push(vlr.Hora);
+                _this.Grafico.datasets[0].data.push(vlr.Valor);
+                _this.showGrafico = true;
+            });
+            // this.Grafico.datasets[0].data = valores;
+        });
+        /*
+                this.data = {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [
+                        {
+                            label: 'First Dataset',
+                            data: [65, 59, 80, 81, 56, 55, 40]
+                        }
+                    ]
+                };
+        */
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        }),
+        })
+        // tslint:disable-next-line:no-unused-expression
+        ,
         __metadata("design:paramtypes", [_dados_Service__WEBPACK_IMPORTED_MODULE_1__["DadosService"]])
     ], AppComponent);
     return AppComponent;
@@ -143,10 +179,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/locales/pt */ "./node_modules/@angular/common/locales/pt.js");
-/* harmony import */ var _angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _dados_Service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./dados-Service */ "./src/app/dados-Service.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var primeng_primeng__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primeng/primeng */ "./node_modules/primeng/primeng.js");
+/* harmony import */ var primeng_primeng__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(primeng_primeng__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/locales/pt */ "./node_modules/@angular/common/locales/pt.js");
+/* harmony import */ var _angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _dados_Service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dados-Service */ "./src/app/dados-Service.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -160,7 +198,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-Object(_angular_common__WEBPACK_IMPORTED_MODULE_3__["registerLocaleData"])(_angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_6___default.a);
+
+Object(_angular_common__WEBPACK_IMPORTED_MODULE_3__["registerLocaleData"])(_angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_7___default.a);
 
 
 var AppModule = /** @class */ (function () {
@@ -169,16 +208,17 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]
             ],
             imports: [
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__["BrowserAnimationsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+                primeng_primeng__WEBPACK_IMPORTED_MODULE_6__["ChartModule"], primeng_primeng__WEBPACK_IMPORTED_MODULE_6__["SharedModule"]
             ],
             providers: [
-                { provide: _angular_core__WEBPACK_IMPORTED_MODULE_2__["LOCALE_ID"], useValue: 'pt' }, _dados_Service__WEBPACK_IMPORTED_MODULE_7__["DadosService"]
+                { provide: _angular_core__WEBPACK_IMPORTED_MODULE_2__["LOCALE_ID"], useValue: 'pt' }, _dados_Service__WEBPACK_IMPORTED_MODULE_8__["DadosService"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;

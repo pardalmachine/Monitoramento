@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ChartModule, SharedModule } from 'primeng/primeng';
 
 import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt);
@@ -22,6 +22,7 @@ import { AppComponent } from './app.component';
   imports: [
     FormsModule, ReactiveFormsModule,
     BrowserModule, BrowserAnimationsModule, HttpClientModule,
+    ChartModule, SharedModule
 
   ],
   providers: [

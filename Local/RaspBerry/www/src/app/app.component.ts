@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { DadosService } from './dados-Service';
 import { BaseType, ColecaoType, MedicaoType } from './dados.Types';
+import { ChartModule } from 'primeng/primeng';
+
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
+// tslint:disable-next-line:no-unused-expression
 
 export class AppComponent implements OnInit {
     ListaBases: BaseType[] = [];
@@ -16,6 +20,10 @@ export class AppComponent implements OnInit {
     Medicao: MedicaoType;
     De: Date;
     Ate: Date;
+    Grafico: any;
+    showGrafico = false;
+
+
     constructor(private dados: DadosService) { }
     ngOnInit(): void {
         this.dados.databases().subscribe(p => this.ListaBases = p);
@@ -24,7 +32,9 @@ export class AppComponent implements OnInit {
     AtuColecoes(): void {
         this.Colecao = null;
         this.Medicao = null;
+        this.showGrafico = false;
         this.ListaColecoes = [];
+
         if (this.Base) {
             const prm = { base: this.Base.name };
             this.dados.collections(prm).subscribe(p => this.ListaColecoes = p);
@@ -35,6 +45,7 @@ export class AppComponent implements OnInit {
 
     AtuMedicoes(): void {
         this.Medicao = null;
+        this.showGrafico = false;
         this.ListaMedicoes = [];
         if (this.Colecao) {
             const prm = { base: this.Base.name, colecao: this.Colecao.name };
@@ -43,7 +54,7 @@ export class AppComponent implements OnInit {
     }
 
     GeraGrafico(): void {
-
+        this.showGrafico = false;
         const prm = {
             base: this.Base.name,
             colecao: this.Colecao.name,
@@ -51,8 +62,48 @@ export class AppComponent implements OnInit {
             de: this.De,
             ate: this.Ate
         };
-        this.dados.valores(prm).subscribe(p => this.ListaMedicoes = p);
 
 
+        this.Grafico = {
+            labels: [],
+            datasets: [
+                {
+                    label: this.Medicao._id,
+                    data: [],
+                    fill: false
+                }
+            ]
+        };
+
+
+        this.dados.valores(prm).subscribe(p => {
+            p.forEach(vlr => {
+                // labels.push(p.Hora);
+                // valores.push(p.Valor);
+                this.Grafico.labels.push(vlr.Hora);
+                this.Grafico.datasets[0].data.push(vlr.Valor);
+                this.showGrafico = true;
+            });
+            // this.Grafico.datasets[0].data = valores;
+        });
+
+
+
+        /*
+                this.data = {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [
+                        {
+                            label: 'First Dataset',
+                            data: [65, 59, 80, 81, 56, 55, 40]
+                        }
+                    ]
+                };
+        */
     }
+
+
+
+
 }
+
