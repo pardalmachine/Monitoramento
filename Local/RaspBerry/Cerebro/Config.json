@@ -1,5 +1,5 @@
 {
-    "Sistema": "PlacaSolar",
+    "Sistema": "Placa Solar",
     "Intervalo": 2,
     "Modulos": [
         {
@@ -24,7 +24,7 @@
                     "IdPlaca": "Esp1",
                     "Tipo": "ADC",
                     "Porta": 30,
-                    "Medicao": "Ampere",
+                    "Medicao": "Voltagem",
                     "Voltagem": 3.7,
                     "bits": 12,
                     "RangeIni": 0,
@@ -112,7 +112,7 @@
             ]
         },
         {
-            "Nome": "Rede Elétrica",
+            "Nome": "Rede Eletrica",
             "Sensores": [
                 {
                     "IdPlaca": "Esp2",

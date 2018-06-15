@@ -4,30 +4,31 @@ import time
 import machine
 import random
 class main:
-    MeuNome="Esp1"
+    MeuNome=""
     Intervalo=1
     Sensores={}
     random.seed(12)
-
+    Configuracao=False
 
     def Start(self):
-        self.Meunome="Esp1"
+        self.MeuNome="Esp1"
+        self.Configuracao=False
         print("Entrei no Start")
-        self.client=MQTTClient("Esp1","192.168.1.201")
+        self.client=MQTTClient("Esp1","192.168.1.202")
         self.client.set_callback(self.on_message)
         self.client.connect()
-        self.client.subscribe("Esp1/#")
-        #time.sleep(2)
-        self.client.publish('configuracao',self.Meunome)
+        self.client.subscribe(self.MeuNome+"/#")
+        time.sleep(2)
+        self.client.publish('configuracao',self.MeuNome)
         ct=0
         while True:
-            #self.client.wait_msg()
             self.client.check_msg()
+
             time.sleep(1)
-            if ct>=self.Intervalo:
+            if (ct>=self.Intervalo and self.Configuracao):
                 ct=0
                 self.LeValores()
-                print("Cliente...", self.Intervalo)
+                print("Realiza Leitura")
             ct+=1
         
     def on_message(self, topic, msg):
@@ -35,16 +36,19 @@ class main:
         Mensagem = Mensagem.replace("'","\"")
         strTopic = str(topic.decode("utf-8"))
         Topicos = strTopic.split("/")
+        print(Mensagem)
+        print(strTopic)
+        
         if (len(Topicos)>=2):
             Acao=Topicos[1]
             if (Acao=="configuracao"):
                 self.Sensores=json.loads(Mensagem)
-                self.Intervalo=self.Sensores["Intervalo"]
-                print(self.Sensores)
                 self.ConfiguraPortas()
         
     def ConfiguraPortas(self):
-        print("vou configurar as portas")            
+        print("Entrei na Configuracao")            
+        self.Configuracao=True
+        self.Intervalo=self.Sensores["Intervalo"]
 
     def LeValores(self):
         print("Inicio leitura de valores")
@@ -53,6 +57,7 @@ class main:
         for sensor in self.Sensores["Sensores"]:
             jValor={}
             jValor["Modulo"]=sensor["Modulo"]
+            jValor["Id_Modulo"]=sensor["Id_Modulo"]
             jValor["Medicao"]=sensor["Medicao"]
             if sensor["Tipo"]=="ADC":
                 valor=self.Map( random.randint(0,4095),0,4095,0,100)

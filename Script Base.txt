@@ -1,0 +1,39 @@
+create table Sistema
+(
+	Id int not null auto_increment,
+	Nome varchar(100),
+	primary key(id)
+	
+);
+
+alter table `Sistema` add unique index ix_sistema_nome (`Nome`);
+
+
+create table Modulo (
+	Id int not null auto_increment,
+	Id_Sistema int,
+	Nome varchar(100),
+	primary key (id),
+	foreign key (Id_Sistema) references Sistema(Id)
+);
+
+alter table `Modulo` add unique index ix_modulo_nome (`Id_Sistema`,`Nome`);
+
+
+create table Valores (
+	Id int not null auto_increment,
+	Id_Modulo int,
+	Unidade varchar(50) not null,
+	Hora DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	valor decimal(9,4) not null,
+	primary key(Id),
+	foreign key (Id_Modulo) references Modulo(Id)
+	
+);
+
+alter table `Valores` add  index ix_valores_referencia (`Id_Modulo`,`Unidade`,`Hora`);
+
+
+CREATE USER 'usrMonitora'@'localhost' IDENTIFIED BY 'Monitora';
+GRANT ALL PRIVILEGES ON * . * TO 'usrMonitora'@'localhost';
+FLUSH PRIVILEGES;

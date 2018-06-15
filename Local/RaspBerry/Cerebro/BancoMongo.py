@@ -1,15 +1,15 @@
-from pymongo import MongoClient
 import datetime
 import time
 import json
-
+from pymongo import MongoClient
 
 class BancoMongo:
     client = ""
     base = ""
 
     def __init__(self):
-        self.client = MongoClient('192.168.1.201', 27017)
+        self.client =  MongoClient('mongodb://192.168.1.202:27017')
+        #self.client = Connection()
         self.base = self.client['PlacaSolar']
 
     #clValores = base["Valores"]

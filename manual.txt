@@ -1,0 +1,53 @@
+Mosquitto
+	wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+	sudo apt-key add mosquitto-repo.gpg.key
+
+	sudo apt-get update
+	apt-get install mosquitto
+
+
+apt-get install mongodb	
+cd /
+mkdir data
+cd data
+mkdir db
+
+no mongodb.conf comentar a linha bindip
+
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install mysql-server --fix-missing
+sudo mysql_secure_installation
+
+
+node
+ pi@raspberrypi:~ $  node -v
+    v0.10.29
+    pi@raspberrypi:~ $  sudo su -
+    root@raspberrypi:~ # apt-get remove nodered -y
+    root@raspberrypi:~ # apt-get remove nodejs nodejs-legacy -y
+    root@raspberrypi:~ # apt-get remove npm  -y # if you installed npm
+    root@raspberrypi:~ # curl -sL https://deb.nodesource.com/setup_10.x — Node.js  | sudo bash -
+    root@raspberrypi:~ # apt-get install nodejs -y
+    root@raspberrypi:~ # node -v
+    v5.9.0
+    root@raspberrypi:~ # npm -v
+	
+FTP
+sudo apt-get install pure-ftpd
+
+
+mkdir Monitoramento
+cd Monitoramento
+mkdir WWW
+mkdir Cerebro
+
+sudo chmod -R 777 /Monitoramento/
+
+Python
+	pip3 install pymongo=2.7.2
+	pip3 install paho-mqtt
+
+	
+Cerebro
+	sudo npm install
+	

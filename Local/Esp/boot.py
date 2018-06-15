@@ -4,7 +4,7 @@ import time
 #import upip
 station = network.WLAN(network.STA_IF)
 station.active(True)
-station.connect("id", "xxxx")
+station.connect("aaaa", "aaaa")
 ct=0
 print("publicador funcionou")
 

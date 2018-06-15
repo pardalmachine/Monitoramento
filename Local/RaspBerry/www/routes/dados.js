@@ -86,8 +86,8 @@ router.get('/databases', function (req, res, next) {
   res.set('Content-Type', 'application/json');
   var adminDb = db.get().db('admin').admin();
   adminDb.listDatabases(function (err, dbs) {
-    //res.send(dbs.databases.filter(p => p.name != 'admin' && p.name != 'config' && p.name != 'local'));
-    res.send(201, [{ "name": "PlacaSolar", "sizeOnDisk": 143360, "empty": false }, { "name": "basex", "sizeOnDisk": 32768, "empty": false }])
+    res.send(dbs.databases.filter(p => p.name != 'admin' && p.name != 'config' && p.name != 'local'));
+    //res.send(201, [{ "name": "PlacaSolar", "sizeOnDisk": 143360, "empty": false }, { "name": "basex", "sizeOnDisk": 32768, "empty": false }])
   });
 
 });

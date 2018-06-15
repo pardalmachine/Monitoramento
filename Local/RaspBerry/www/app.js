@@ -9,9 +9,10 @@ var bodyParser = require('body-parser');
 var dados = require('./routes/dados');
 var app = express();
 var db = require('./db');
-db.connect('mongodb://192.168.1.201:27017/', function (err) {
+db.connect('mongodb://192.168.1.202:27017/', function (err) {
   if (err) {
-    console.log('Unable to connect to Mongo.')
+    console.log('Sem conexao com o Mongo.')
+	console.log(err);
     process.exit(1)
   } else {
     console.log('conectei no mongo');
