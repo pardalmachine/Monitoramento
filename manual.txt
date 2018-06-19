@@ -1,22 +1,45 @@
+ssh
+	systemctl enable ssh
+	sudo systemctl start ssh
+
+passwd
+		Pardal01
+	
+ftpd
+	sudo apt-get install pure-ftpd
+
+	
+Configuração de rede
+/etc/dhcpcd.conf
+# Example static IP configuration:
+interface eth0
+static ip_address=10.0.0.30/24
+
+interface wlan0
+static ip_address=192.168.1.202/24
+static routers=192.168.1.1
+static domain_name_servers=8.8.8.8
+
+	
 Mosquitto
+	sudo -i
 	wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
 	sudo apt-key add mosquitto-repo.gpg.key
 
+	cd /etc/apt/sources.list.d/
+	sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list
+	
 	sudo apt-get update
+	apt-get update
+	
 	apt-get install mosquitto
 
 
-apt-get install mongodb	
-cd /
-mkdir data
-cd data
-mkdir db
 
-no mongodb.conf comentar a linha bindip
-
-sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install mysql-server --fix-missing
-sudo mysql_secure_installation
+mysql
+	sudo apt-get update && sudo apt-get upgrade
+	sudo apt-get install mysql-server --fix-missing
+	sudo mysql_secure_installation
 
 
 node
@@ -32,22 +55,26 @@ node
     v5.9.0
     root@raspberrypi:~ # npm -v
 	
-FTP
-sudo apt-get install pure-ftpd
 
 
-mkdir Monitoramento
-cd Monitoramento
+mkdir /Monitoramento
+cd /Monitoramento
 mkdir WWW
 mkdir Cerebro
 
 sudo chmod -R 777 /Monitoramento/
 
+##Copiar tudo do diretorório https://github.com/pardalmachine/Monitoramento/tree/master/Local/RaspBerry/Cerebro
 Python
-	pip3 install pymongo=2.7.2
 	pip3 install paho-mqtt
+	pip3 install mysql-connector
 
 	
 Cerebro
 	sudo npm install
+
+npm install express -g
+
+
+
 	

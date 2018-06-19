@@ -5,35 +5,35 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="col-md-4">
-                        <label>Base
-                            <span *ngIf="Base" style="margin-left: 10px;"> Tamanho: {{Base.sizeOnDisk}}</span>
+                        <label>Sistema
+
                         </label>
-                        <select [(ngModel)]="Base" class="form-control" (click)="AtuColecoes()" name="base">
-                            <option *ngFor="let item of ListaBases" [ngValue]="item">{{item.name}}</option>
+                        <select [(ngModel)]="Sistema" class="form-control" (click)="AtuModulos()">
+                            <option *ngFor="let item of ListaSistemas" [ngValue]="item">{{item.Nome}}</option>
                         </select>
                     </div>
-                    <div class="col-md-4" *ngIf="Base">
-                        <label>Coleção</label>
-                        <select [(ngModel)]="Colecao" class="form-control" (click)="AtuMedicoes()">
-                            <option *ngFor="let item of ListaColecoes" [ngValue]="item">{{item.name}}</option>
+                    <div class="col-md-4" *ngIf="Sistema">
+                        <label>Módulo</label>
+                        <select [(ngModel)]="Modulo" class="form-control" (click)="AtuUnidades()">
+                            <option *ngFor="let item of ListaModulos" [ngValue]="item">{{item.Nome}}</option>
                         </select>
                     </div>
-                    <div class="col-md-4" *ngIf="Colecao">
-                        <label>Coleção</label>
-                        <select [(ngModel)]="Medicao" class="form-control">
-                            <option *ngFor="let item of ListaMedicoes" [ngValue]="item">{{item._id}}</option>
+                    <div class="col-md-4" *ngIf="Modulo">
+                        <label>Unidade</label>
+                        <select [(ngModel)]="Unidade" class="form-control">
+                            <option *ngFor="let item of ListaUnidades" [ngValue]="item">{{item.Unidade}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="row" *ngIf="Medicao">
+                <div class="row" *ngIf="Unidade">
                     <div class="col-md-6">
                         <dl>
                             <dt>Início</dt>
-                            <dd>{{Medicao.De | date:'dd/MM/yyyy'}}</dd>
+                            <dd>{{Unidade.Inicio | date:'dd/MM/yyyy HH:mm'}}</dd>
                             <dt>Término</dt>
-                            <dd>{{Medicao.Ate | date:'dd/MM/yyyy'}}</dd>
+                            <dd>{{Unidade.Termino | date:'dd/MM/yyyy HH:mm'}}</dd>
                             <dt>Leituras</dt>
-                            <dd>{{Medicao.Leituras}}</dd>
+                            <dd>{{Unidade.Leituras}}</dd>
                         </dl>
                     </div>
                     <div class="col-md-6">

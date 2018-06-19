@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { BaseType, ColecaoType, MedicaoType } from './dados.Types';
+import { SistemaType, ModuloType, UnidadeType, ValorType } from './dados.Types';
 
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
@@ -14,26 +14,26 @@ export class DadosService {
         private http: HttpClient
     ) { }
 
-    private pathUrl = 'dados';
+    private pathUrl = 'inf';
 
-    databases(): Observable<BaseType[]> {
-        const url = `${this.pathUrl}/databases`;
-        return this.http.get<BaseType[]>(url);
+    sistemas(): Observable<SistemaType[]> {
+        const url = `${this.pathUrl}/sistemas`;
+        return this.http.get<SistemaType[]>(url);
     }
 
-    collections(prm: any): Observable<ColecaoType[]> {
-        const url = `${this.pathUrl}/collections`;
-        return this.http.post<ColecaoType[]>(url, prm, httpOptions);
+    modulos(id: number): Observable<ModuloType[]> {
+        const url = `${this.pathUrl}/modulos/${id}`;
+        return this.http.get<ModuloType[]>(url);
     }
 
-    medicao(prm: any): Observable<MedicaoType[]> {
-        const url = `${this.pathUrl}/medicao`;
-        return this.http.post<MedicaoType[]>(url, prm, httpOptions);
+    unidades(id: number): Observable<UnidadeType[]> {
+        const url = `${this.pathUrl}/unidades/${id}`;
+        return this.http.get<UnidadeType[]>(url);
     }
 
-    valores(prm: any): Observable<any[]> {
+    valores(prm: any): Observable<ValorType[]> {
         const url = `${this.pathUrl}/valores`;
-        return this.http.post<any[]>(url, prm, httpOptions);
+        return this.http.post<ValorType[]>(url, prm, httpOptions);
     }
 
 

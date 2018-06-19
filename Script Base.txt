@@ -1,3 +1,7 @@
+####Conecta o Mysql->mysql
+## cria a base ->create database Monitora
+## muda para a base->use Monitora;
+
 create table Sistema
 (
 	Id int not null auto_increment,
@@ -25,7 +29,7 @@ create table Valores (
 	Id_Modulo int,
 	Unidade varchar(50) not null,
 	Hora DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	valor decimal(9,4) not null,
+	Valor decimal(9,4) not null,
 	primary key(Id),
 	foreign key (Id_Modulo) references Modulo(Id)
 	
@@ -34,6 +38,10 @@ create table Valores (
 alter table `Valores` add  index ix_valores_referencia (`Id_Modulo`,`Unidade`,`Hora`);
 
 
+
+
 CREATE USER 'usrMonitora'@'localhost' IDENTIFIED BY 'Monitora';
-GRANT ALL PRIVILEGES ON * . * TO 'usrMonitora'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'usrMonitora'@'localhost' WITH GRANT OPTION;
+CREATE USER 'usrMonitora'@'%' IDENTIFIED BY 'Monitora';
+GRANT ALL PRIVILEGES ON *.* TO 'usrMonitora'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

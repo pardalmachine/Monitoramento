@@ -1,17 +1,27 @@
-export class BaseType {
-    name: string;
-    empty: boolean;
-    sizeOnDisk: number;
-
+export class SistemaType {
+    Id: number;
+    Nome: string;
 }
 
-export class ColecaoType {
-    name: string;
+export class ModuloType {
+    Id: number;
+    Id_Sistema: number;
+    Nome: string;
 }
 
-export class MedicaoType {
-    _id: string;
+export class UnidadeType {
+    Id_Modulo: number;
+    Unidade: string;
     Leituras: number;
-    De: Date;
-    Ate: Date;
+    Inicio: Date;
+    Termino: Date;
+}
+
+export class ValorType{
+    Hora: Date;
+    Id: number;
+    Id_Modulo: number;
+    Unidade: String;
+    Valor: number;
+
 }

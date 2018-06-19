@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { DadosService } from './dados-Service';
-import { BaseType, ColecaoType, MedicaoType } from './dados.Types';
+import { SistemaType, ModuloType, UnidadeType } from './dados.Types';
 import { ChartModule } from 'primeng/primeng';
+// import { listener } from '@angular/core/src/render3/instructions';
 
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    templateUrl: './app.component.html'
 })
-// tslint:disable-next-line:no-unused-expression
+
 
 export class AppComponent implements OnInit {
-    ListaBases: BaseType[] = [];
-    ListaColecoes: ColecaoType[] = [];
-    ListaMedicoes: MedicaoType[] = [];
-    Base: BaseType;
-    Colecao: ColecaoType;
-    Medicao: MedicaoType;
+    ListaSistemas: SistemaType[] = [];
+    ListaModulos: ModuloType[] = [];
+    ListaUnidades: UnidadeType[] = [];
+
+    Sistema: SistemaType;
+    Modulo: ModuloType;
+    Unidade: UnidadeType;
     De: Date;
     Ate: Date;
     Grafico: any;
@@ -26,39 +27,36 @@ export class AppComponent implements OnInit {
 
     constructor(private dados: DadosService) { }
     ngOnInit(): void {
-        this.dados.databases().subscribe(p => this.ListaBases = p);
+        this.dados.sistemas().subscribe(p => this.ListaSistemas = p);
     }
 
-    AtuColecoes(): void {
-        this.Colecao = null;
-        this.Medicao = null;
+    AtuModulos(): void {
+        this.Modulo = null;
+        this.Unidade = null;
         this.showGrafico = false;
-        this.ListaColecoes = [];
+        this.ListaModulos = [];
 
-        if (this.Base) {
-            const prm = { base: this.Base.name };
-            this.dados.collections(prm).subscribe(p => this.ListaColecoes = p);
+        if (this.Sistema) {
+            this.dados.modulos(this.Sistema.Id).subscribe(p => this.ListaModulos = p);
         } else {
-            this.ListaColecoes = [];
+            this.ListaModulos = [];
         }
     }
 
-    AtuMedicoes(): void {
-        this.Medicao = null;
+    AtuUnidades(): void {
+        this.Unidade = null;
         this.showGrafico = false;
-        this.ListaMedicoes = [];
-        if (this.Colecao) {
-            const prm = { base: this.Base.name, colecao: this.Colecao.name };
-            this.dados.medicao(prm).subscribe(p => this.ListaMedicoes = p);
+        this.ListaUnidades = [];
+        if (this.Modulo) {
+            this.dados.unidades(this.Modulo.Id).subscribe(p => this.ListaUnidades = p);
         }
     }
 
     GeraGrafico(): void {
         this.showGrafico = false;
         const prm = {
-            base: this.Base.name,
-            colecao: this.Colecao.name,
-            medicao: this.Medicao._id,
+            modulo: this.Modulo.Id,
+            unidade: this.Unidade.Unidade,
             de: this.De,
             ate: this.Ate
         };
@@ -68,7 +66,7 @@ export class AppComponent implements OnInit {
             labels: [],
             datasets: [
                 {
-                    label: this.Medicao._id,
+                    label: this.Unidade.Unidade,
                     data: [],
                     fill: false
                 }
