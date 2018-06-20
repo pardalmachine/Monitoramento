@@ -1,5 +1,5 @@
 var db = require('../dbConnection');
-var moment=require('moment');
+var moment = require('moment');
 
 var Dados = {
     Sistemas: function (callback) {
@@ -15,29 +15,33 @@ var Dados = {
         return db.query(`
         select 
             Id_Modulo
-            , Unidade, count(1) as Leituras
+            , Unidade
+            , count(1) as Leituras
             , min(Hora) as Inicio, max(Hora) as Termino 
-        from Valores 
-        where Id_Modulo=? order by Unidade;`, [modulo], callback);
+            from Valores 
+            where Id_Modulo='1' 
+            GROUP BY Id_Modulo, Unidade
+            order by Unidade;
+            `, [modulo], callback);
     },
 
     Valores: function (modulo, unidade, de, ate, callback) {
-        var De = moment(de.substring(0,10));
-        var Ate = moment(ate.substring(0,10)).add('day',1);
-        // console.log(De.format("YYYY-MM-DD HH:mm:ss"));
-        // console.log(Ate.format("YYYY-MM-DD HH:mm:ss"));
-        
+        var De = moment(de.substring(0, 10));
+        var Ate = moment(ate.substring(0, 10)).add('day', 1);
+         console.log(De.format("YYYY-MM-DD HH:mm:ss"));
+         console.log(Ate.format("YYYY-MM-DD HH:mm:ss"));
+
         return db.query(`
         select 
             *
         from Valores 
         where Id_Modulo=? and Unidade=? and Hora between ? and ?
         order by Hora;`, [
-            modulo, 
-            unidade, 
-            De.format("YYYY-MM-DD HH:mm:ss"), 
-            Ate.format("YYYY-MM-DD HH:mm:ss")
-        ], callback);
+                modulo,
+                unidade,
+                De.format("YYYY-MM-DD HH:mm:ss"),
+                Ate.format("YYYY-MM-DD HH:mm:ss")
+            ], callback);
     }
 
 };

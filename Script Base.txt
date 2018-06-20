@@ -40,8 +40,8 @@ alter table `Valores` add  index ix_valores_referencia (`Id_Modulo`,`Unidade`,`H
 
 
 
-CREATE USER 'usrMonitora'@'localhost' IDENTIFIED BY 'Monitora';
+CREATE USER 'usrMonitora'@'localhost' IDENTIFIED BY '#Monitora547';
 GRANT ALL PRIVILEGES ON *.* TO 'usrMonitora'@'localhost' WITH GRANT OPTION;
-CREATE USER 'usrMonitora'@'%' IDENTIFIED BY 'Monitora';
+CREATE USER 'usrMonitora'@'%' IDENTIFIED BY '#Monitora547';
 GRANT ALL PRIVILEGES ON *.* TO 'usrMonitora'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

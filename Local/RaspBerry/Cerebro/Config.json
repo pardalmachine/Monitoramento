@@ -10,10 +10,14 @@
                     "Tipo": "ADC",
                     "Porta": 36,
                     "Medicao": "Ampere",
-                    "Voltagem": 1.1,
+                    "Voltagem": 3.6,
                     "bits": 10,
-                    "RangeIni": 0,
-                    "RangeFim": 200
+                    "FinalIni": 0,
+                    "FinalFim": 200,
+                    "InicioIni": 0,
+                    "InicioFim": 3500,
+                    "Funcao":"Map",
+                    "Acumulo":"Total"
                 }
             ]
         },
@@ -23,18 +27,23 @@
                 {
                     "IdPlaca": "Esp1",
                     "Tipo": "ADC",
-                    "Porta": 30,
+                    "Porta": 35,
                     "Medicao": "Voltagem",
-                    "Voltagem": 3.7,
-                    "bits": 12,
-                    "RangeIni": 0,
-                    "RangeFim": 25
+                    "Voltagem": 3.6,
+                    "bits": 10,
+                    "FinalIni": 0,
+                    "FinalFim": 30,
+                    "InicioIni": 0,
+                    "InicioFim": 3500,
+                    "Funcao":"Map",
+                    "Acumulo":"Media"
+                    
                 },
                 {
                     "IdPlaca": "Esp2",
                     "Tipo": "ADC",
                     "Porta": 31,
-                    "Medicao": "Voltagem"
+                    "Acumulo": "Voltagem"
                 }
             ]
         },

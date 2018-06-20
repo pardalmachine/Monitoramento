@@ -40,11 +40,10 @@ mysql
 	sudo apt-get update && sudo apt-get upgrade
 	sudo apt-get install mysql-server --fix-missing
 	sudo mysql_secure_installation
-
+	em /etc/mysql/mariadb.conf.d/50-server.cnf -> comentar a linha 
 
 node
  pi@raspberrypi:~ $  node -v
-    v0.10.29
     pi@raspberrypi:~ $  sudo su -
     root@raspberrypi:~ # apt-get remove nodered -y
     root@raspberrypi:~ # apt-get remove nodejs nodejs-legacy -y
@@ -65,15 +64,22 @@ mkdir Cerebro
 sudo chmod -R 777 /Monitoramento/
 
 ##Copiar tudo do diretorório https://github.com/pardalmachine/Monitoramento/tree/master/Local/RaspBerry/Cerebro
+/Monitoramento/Cerebro
 Python
 	pip3 install paho-mqtt
 	pip3 install mysql-connector
 
+#execução cerebro-> python3 ./Principal.py	
 	
-Cerebro
+##Copiar tudo do diretório https://github.com/pardalmachine/Monitoramento/tree/master/Local/RaspBerry/www
+/Monitoramento/WWWW
 	sudo npm install
+	sudo npm install @angular/cli -g
+	ng build --prod
+#Execução web -> node bin/www
+browser=>[IP raspberry]:3000
 
-npm install express -g
+
 
 
 

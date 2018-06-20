@@ -7,9 +7,9 @@ class BancoMysql:
     Id_Sistema=0
     def __init__(self):
         self.cliente = MariaDB.connect(
-            user='root',
-            password='Mercado1',
-            host='192.168.1.202',
+            user='usrMonitora',
+            password='#Monitora547',
+            host='192.168.1.201',
             database='Monitora')
     
     def Dispose(self):
