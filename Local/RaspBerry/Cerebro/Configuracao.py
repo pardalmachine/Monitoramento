@@ -17,20 +17,8 @@ class Configuracao:
             for sensor in modulo["Sensores"]:
                 if Placa == sensor["IdPlaca"]:
                     Id=banco.IdModulo(config["Sistema"], modulo["Nome"])
-                    jPlaca = {}
-                    jPlaca["Tipo"] = sensor["Tipo"]
-                    jPlaca["Porta"] = sensor["Porta"]
-                    jPlaca["Medicao"] = sensor["Medicao"]
+                    jPlaca = sensor
                     jPlaca["Id_Modulo"] = Id
-                    if sensor["Tipo"].__contains__("ADC") == True:
-                        jPlaca["Voltagem"] = sensor["Voltagem"]
-                        jPlaca["bits"] = sensor["bits"]
-                        jPlaca["FinalIni"] = sensor["FinalIni"]
-                        jPlaca["FinalFim"] = sensor["FinalFim"]
-                        jPlaca["InicioIni"] = sensor["InicioIni"]
-                        jPlaca["InicioFim"] = sensor["InicioFim"]
-                        jPlaca["Funcao"] = sensor["Funcao"]
-                        jPlaca["Acumulo"] = sensor["Acumulo"]
                     retorno["Sensores"].append(jPlaca)
         banco.Dispose()
         return retorno

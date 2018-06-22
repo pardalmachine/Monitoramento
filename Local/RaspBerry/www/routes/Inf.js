@@ -23,7 +23,7 @@ router.get('/modulos/:id', function (req, res, next) {
 
 
 router.get('/unidades/:id', function (req, res, next) {
-
+    
     Dados.Unidades(req.params.id, function (err, rows) {
         if (err) res.json(err)
         else {

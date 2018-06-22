@@ -12,17 +12,19 @@ var Dados = {
     },
 
     Unidades: function (modulo, callback) {
-        return db.query(`
+        var sql = `
         select 
             Id_Modulo
             , Unidade
             , count(1) as Leituras
             , min(Hora) as Inicio, max(Hora) as Termino 
             from Valores 
-            where Id_Modulo='1' 
+            where Id_Modulo=? 
             GROUP BY Id_Modulo, Unidade
             order by Unidade;
-            `, [modulo], callback);
+            `;
+        console.log(sql);
+        return db.query(sql, [modulo], callback);
     },
 
     Valores: function (modulo, unidade, de, ate, callback) {
