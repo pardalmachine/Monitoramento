@@ -1,10 +1,25 @@
 {
     "Sistema": "Casa",
-    "Intervalo": 30,
+    "Intervalo": 2,
     "Modulos": [
         {
             "Nome": "Sala",
             "Sensores": [
+                {
+                    "IdPlaca": "Esp1",
+                    "Tipo": "ADC",
+                    "Porta": 36,
+                    "Medicao": "Joystic",
+                    "Voltagem": 3.6,
+                    "bits": 12,
+                    "FinalIni": 0,
+                    "FinalFim": 100,
+                    "InicioIni": 0,
+                    "InicioFim": 4095,
+                    "Funcao":"Map",
+                    "Acumulo":"Media"
+                },
+                
                 {
                     "IdPlaca": "Esp1",
                     "Tipo": "DHT",

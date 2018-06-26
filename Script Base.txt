@@ -1,5 +1,5 @@
 ####Conecta o Mysql->mysql
-## cria a base ->create database Monitora
+## cria a base ->create database Monitora;
 ## muda para a base->use Monitora;
 
 create table Sistema

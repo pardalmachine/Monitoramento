@@ -9,7 +9,7 @@ class BancoMysql:
         self.cliente = MariaDB.connect(
             user='usrMonitora',
             password='#Monitora547',
-            host='192.168.1.201',
+            host='127.0.0.1',
             database='Monitora')
     
     def Dispose(self):

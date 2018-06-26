@@ -23,7 +23,6 @@ var Dados = {
             GROUP BY Id_Modulo, Unidade
             order by Unidade;
             `;
-        console.log(sql);
         return db.query(sql, [modulo], callback);
     },
 
@@ -35,9 +34,10 @@ var Dados = {
 
         return db.query(`
         select 
-            *
+        avg(Valor) as Valor, convert((min(Hora) div 500)*500 , datetime) as Hora
         from Valores 
         where Id_Modulo=? and Unidade=? and Hora between ? and ?
+        group by Hora div 500
         order by Hora;`, [
                 modulo,
                 unidade,
