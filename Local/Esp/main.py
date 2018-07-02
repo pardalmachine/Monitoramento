@@ -1,3 +1,4 @@
+import gc
 from umqtt.simple import MQTTClient
 import json
 import time
@@ -17,6 +18,7 @@ class main:
     SimulaLeitura=True
 
     def Start(self):
+        gc.enable()
         self.MeuNome="Esp1"
         self.Configuracao=False
         print("Entrei no Start")
@@ -113,6 +115,7 @@ class main:
             
 
     def EnviaValores(self):
+        gc.collect()
         print("Envia Valores")
         retorno={}
         retorno["Leituras"]=[]
