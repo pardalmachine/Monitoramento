@@ -1,3 +1,4 @@
+import gc
 from umqtt.simple import MQTTClient
 import json
 import time
@@ -17,10 +18,11 @@ class main:
     SimulaLeitura=True
 
     def Start(self):
+        gc.enable()
         self.MeuNome="Esp1"
         self.Configuracao=False
-        #print("Entrei no Start")
-        self.client=MQTTClient(self.MeuNome,"192.168.1.202")
+        print("Entrei no Start")
+        self.client=MQTTClient(self.MeuNome,"192.168.1.201")
         self.client.set_callback(self.on_message)
         self.client.connect()
         self.client.subscribe(self.MeuNome+"/#")
@@ -53,7 +55,7 @@ class main:
                 
         
     def ConfiguraPortas(self, mensagem):
-        #print("Entrei na Configuracao")            
+        print("Entrei na Configuracao")            
         mensagem = mensagem.replace("'","\"")
         config = json.loads(mensagem)
         self.Intervalo = config["Intervalo"]
@@ -83,11 +85,11 @@ class main:
                 if confPorta["bits"]==9:
                     self.Portas[numPorta].width(self.Portas[numPorta].WIDTH_9BIT)
             if (confPorta["Tipo"]=="DHT"):
-                #print(str(numPorta)+" na linha 84")
-                #print (numPorta+100)
+                print(str(numPorta)+" na linha 84")
+                print (numPorta+100)
                 #self.PortasLeitura[numPorta]=0
                 self.PortasLeitura[numPorta+0.1]=0
-                #print(confPorta)
+                print(confPorta)
                 if confPorta["Modelo"]=="22":
                     self.Portas[numPorta]=dht.DHT22(machine.Pin(numPorta))
                 if confPorta["Modelo"]=="11":
@@ -100,22 +102,21 @@ class main:
         for porta, pino in self.Portas.items():
             if self.PortasConfig[porta]["Tipo"]=="ADC":
                 valor = pino.read()
-                print("Original="+str(valor))
                 if self.PortasConfig[porta]["Funcao"]=="Map":
                     valor = self.Map(valor, self.PortasConfig[porta]["InicioIni"],self.PortasConfig[porta]["InicioFim"],self.PortasConfig[porta]["FinalIni"],self.PortasConfig[porta]["FinalFim"])
-                    print("Convertido="+str(valor))
                 self.PortasLeitura[porta]+=valor
             if self.PortasConfig[porta]["Tipo"]=="DHT":
-                #print('Leitura dht')
+                print('Leitura dht')
                 pino.measure()
                 self.PortasLeitura[porta]+=pino.temperature()
                 self.PortasLeitura[porta+0.1]+=pino.humidity()
-                #print (self.PortasLeitura[porta])
-                #print (self.PortasLeitura[porta+0.1])
+                print (self.PortasLeitura[porta])
+                print (self.PortasLeitura[porta+0.1])
             
 
     def EnviaValores(self):
-        #print("Envia Valores")
+        gc.collect()
+        print("Envia Valores")
         retorno={}
         retorno["Leituras"]=[]
         for porta, pino in self.Portas.items():
@@ -139,7 +140,7 @@ class main:
                 retorno["Leituras"].append(jHumidade)
 
 
-                #print('entrei no dht')
+                print('entrei no dht')
             else:
                 valor = self.PortasLeitura[porta]
                 self.PortasLeitura[porta]=0
@@ -156,4 +157,3 @@ class main:
 
     def Map(self, x, in_min, in_max, out_min, out_max):
         return (x-in_min)*(out_max-out_min)/(in_max-in_min)+out_min
-
