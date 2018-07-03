@@ -9,6 +9,7 @@ import dht
 class main:
     MeuNome=""
     Intervalo=10
+    
     #Sensores={}
     random.seed(12)
     Configuracao=False
@@ -29,8 +30,12 @@ class main:
         time.sleep(2)
         self.client.publish('configuracao',self.MeuNome)
         ct=0
+        ctBoot=0
         while True:
             self.client.check_msg()
+            ctBoot+=1
+            if (ctBoot>3600):
+                machine.reset()
             if (self.Configuracao):
                 ct+=1
                 self.LeValores()
@@ -55,7 +60,7 @@ class main:
                 
         
     def ConfiguraPortas(self, mensagem):
-        print("Entrei na Configuracao")            
+        print("Entrei na Configuracao das portas")            
         mensagem = mensagem.replace("'","\"")
         config = json.loads(mensagem)
         self.Intervalo = config["Intervalo"]
@@ -95,6 +100,7 @@ class main:
                 if confPorta["Modelo"]=="11":
                     self.Portas[numPorta]=dht.DHT11(machine.Pin(numPorta))
         self.Configuracao=True
+        print("sai da configuração na Configuracao das portas")            
         #self.Intervalo=self.Sensores["Intervalo"]
 
     def LeValores(self):
