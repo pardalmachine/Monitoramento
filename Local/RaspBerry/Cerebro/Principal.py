@@ -1,4 +1,5 @@
-﻿import time
+import time
+import gc    
 from Configuracao import Configuracao
 from BancoMysql import BancoMysql
 import paho.mqtt.client as mqtt
@@ -30,6 +31,11 @@ client.on_message = on_message
 client.loop_start()
 
 #conf = Configuracao()
+ct=0
 while True:
     print("Servidor ...")
+    ct+=1
+    if (ct>=1000)
+        gc.collect()
+        ct=0
     time.sleep(1)
