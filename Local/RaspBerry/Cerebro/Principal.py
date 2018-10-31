@@ -33,9 +33,9 @@ client.loop_start()
 #conf = Configuracao()
 ct=0
 while True:
-    print("Servidor ...")
+    #print("Servidor ...")
     ct+=1
-    if (ct>=1000)
+    if (ct>=1000):
         gc.collect()
         ct=0
     time.sleep(1)

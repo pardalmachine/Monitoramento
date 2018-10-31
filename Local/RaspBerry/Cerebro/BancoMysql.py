@@ -64,10 +64,13 @@ class BancoMysql:
         Mensagem = msg.replace("'","\"")
         leituras = json.loads(Mensagem)
         cursor = self.cliente.cursor(buffered=True)
-        for leitura in leituras["Leituras"]:
-            insert = ("insert into Valores (Id_Modulo, Unidade, Valor) values (%s,%s,%s)")
-            cursor.execute(insert,(leitura["Id_Modulo"], leitura["Medicao"], leitura["Valor"]))
-        self.cliente.commit()
+        try:
+            for leitura in leituras["Leituras"]:
+                insert = ("insert into Valores (Id_Modulo, Unidade, Valor) values (%s,%s,%s)")
+                cursor.execute(insert,(leitura["Id_Modulo"], leitura["Medicao"], leitura["Valor"]))
+            self.cliente.commit()
+        except ValueError:
+            print(ValueError)
         #for(medicao in leituras["Leituras"]):
     
 
